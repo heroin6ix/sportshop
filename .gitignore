@@ -1,0 +1,19 @@
+# Системные файлы
+Thumbs.db
+.DS_Store
+*.log
+
+# Настройки OpenServer/OSPanel
+userdata/
+
+# Конфигурация базы данных (никогда не коммить пароли!)
+config/db.php
+
+# Кэш и временные файлы
+cache/
+tmp/
+
+# IDE файлы
+.idea/
+.vscode/
+*.swp
