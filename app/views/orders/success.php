@@ -1,70 +1,54 @@
-<?php
-// Сначала все логические операции - ДО ЛЮБОГО ВЫВОДА
-$orderId = $_GET['order_id'] ?? null;
-
-// Проверяем, что order_id передан и является числом
-if (!$orderId || !ctype_digit($orderId)) {
-    var_dump($orderId); exit;
-    header("Location: /");
-    exit;
-}
-
-$order = null;
-
-if (isset($_SESSION['user_id'])) {
-    global $pdo;
-    
-    // Проверяем, что заказ принадлежит пользователю
-    $stmt = $pdo->prepare("SELECT ID_Orders FROM Orders WHERE ID_Orders = ? AND Users_ID = ?");
-    $stmt->execute([$orderId, $_SESSION['user_id']]);
-    $result = $stmt->fetch();
-    
-    if (!$result) {
-        // Заказ не принадлежит пользователю или не существует
-        header("Location: /");
-        exit;
-    }
-    
-    // Получаем детали заказа
-    $stmt = $pdo->prepare("SELECT * FROM Orders WHERE ID_Orders = ?");
-    $stmt->execute([$orderId]);
-    $order = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    if (!$order) {
-        header("Location: /");
-        exit;
-    }
-} else {
-    // Если пользователь не авторизован, но order_id есть
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT * FROM Orders WHERE ID_Orders = ?");
-    $stmt->execute([$orderId]);
-    $order = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    if (!$order) {
-        header("Location: /");
-        exit;
-    }
-}
-
-// Определяем маппинг статусов
-$statusLabels = [
-    'pending' => 'На рассмотрении',
-    'processing' => 'В Процессе',
-    'shipped' => 'Отправлен',
-    'delivered' => 'Доставлен',
-    'cancelled' => 'Отменён'
-];
-?>
-
 <?php include "app/views/layout.php"; ?>
 
-<h1>Заказ успешно оформлен!</h1>
+<div class="container my-5">
+    <div class="text-center py-5">
+        <div class="mb-4">
+            <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                 style="width: 100px; height: 100px; font-size: 3rem;">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+        <h1 class="mb-3">Заказ успешно оформлен!</h1>
+        <p class="lead text-muted mb-4">Спасибо за покупку в SportShop</p>
+        
+        <?php if (!empty($orderId)): ?>
+        <div class="card border-success max-w-500 mx-auto mb-4">
+            <div class="card-body">
+                <h4 class="card-title text-success mb-3">Детали заказа</h4>
+                <div class="mb-2">
+                    <span class="text-muted">Номер заказа:</span>
+                    <span class="fw-bold fs-4">#<?= htmlspecialchars($orderId) ?></span>
+                </div>
+                <?php if (!empty($order)): ?>
+                <div class="mb-2">
+                    <span class="text-muted">Сумма заказа:</span>
+                    <span class="fw-bold fs-4"><?= number_format((float)$order['TotalAmount'], 0, ',', ' ') ?> ₽</span>
+                </div>
+                <div class="mb-2">
+                    <span class="text-muted">Адрес доставки:</span>
+                    <span class="fw-bold"><?= htmlspecialchars($order['Address']) ?></span>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endif; ?>
+        
+        <p class="text-muted mb-4">
+            Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа.<br>
+            Спасибо, что выбрали SportShop!
+        </p>
+        
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/products" class="btn btn-primary px-4 py-2">
+                <i class="fas fa-shopping-bag me-2"></i>Продолжить покупки
+            </a>
+            <a href="/orders/index" class="btn btn-outline-primary px-4 py-2">
+                <i class="fas fa-history me-2"></i>Мои заказы
+            </a>
+        </div>
+    </div>
+</div>
 
-<p>Номер вашего заказа: <b><?= htmlspecialchars($orderId) ?></b></p>
-<p>Сумма заказа: <?= number_format((float)$order['TotalAmount'], 2, ',', ' ') ?> ₽</p>
-<p>Статус: <?= htmlspecialchars($statusLabels[$order['Status']] ?? $order['Status']) ?></p>
-
-<p>Спасибо за покупку! Мы свяжемся с вами для подтверждения.</p>
-
-<a href="/products">Вернуться в каталог</a>
+<style>
+    .max-w-500 { max-width: 500px; }
+</style>
