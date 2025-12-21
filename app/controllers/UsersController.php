@@ -94,10 +94,12 @@ class UsersController {
         Users::update($_SESSION['user_id'], $login, $fullname, $phone, $email);
         header("Location: /profile"); exit;
 }
-    public function logout() { //выход
-        session_start();
+    public function logout() {
         session_destroy();
-        echo "Вы вышли из аккаунта!";
+        session_start(); 
+        $_SESSION['success'] = "Вы успешно вышли из аккаунта.";
+        header("Location: /");
+        exit;
     }
 }
 ?>

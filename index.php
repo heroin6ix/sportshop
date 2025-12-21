@@ -27,6 +27,8 @@ $router->add("/profile/update", "UsersController@updateProfile");
 $router->add("/cart", "CartController@index");
 $router->add("/cart/add", "CartController@add");
 $router->add("/cart/update", "CartController@update");
+$router->add("/cart/remove", "CartController@remove");
+$router->add("/cart/clear", "CartController@clear");
 
 
 //Оформление заказа
@@ -48,6 +50,8 @@ $router->add("/admin/products/delete", "AdminController@deleteProduct");
 
 $router->add("/admin/orders", "AdminController@orders");
 $router->add("/admin/orders/update-status/", "AdminController@updateOrderStatus");
+
+
 //выход
 $router->add("/logout", "UsersController@logout");
 

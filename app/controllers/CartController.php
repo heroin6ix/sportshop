@@ -73,5 +73,25 @@ class CartController {
         header("Location: /cart");
         exit;
     }
+    public function remove() {
+    $productId = (int)($_GET['product_id'] ?? 0);
+    
+    if ($productId > 0 && !empty($_SESSION['cart'][$productId])) {
+        unset($_SESSION['cart'][$productId]);
+        $_SESSION['success'] = "Товар удалён из корзины.";
+    }
+    
+    header("Location: /cart");
+    exit;
+    }
+    public function clear() {
+    if (!empty($_SESSION['cart'])) {
+        unset($_SESSION['cart']);
+        $_SESSION['success'] = "Корзина очищена.";
+    }
+    
+    header("Location: /cart");
+    exit;
+    }
 
 } 

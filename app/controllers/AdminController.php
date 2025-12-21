@@ -133,7 +133,6 @@ class AdminController {
     }
 
     public function updateOrderStatus() {
-            // 🔴 ВРЕМЕННАЯ ОТЛАДКА
         $this->checkAdmin();
         $orderId = (int)($_POST['order_id'] ?? 0);
         $newStatus = $_POST['status'] ?? '';

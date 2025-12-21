@@ -44,12 +44,16 @@
                                 <input type="number" 
                                        name="qty[<?= $p['ID_Products'] ?>]" 
                                        value="<?= $qty ?>" 
-                                       min="1" 
+                                       min="0" 
                                        class="form-control form-control-sm w-75">
                             </td>
                             <td><strong><?= $sum ?> ₽</strong></td>
                             <td class="text-end">
-                                <!-- Пока оставим пустым, можно добавить "удалить" позже -->
+                                <a href="/cart/remove?product_id=<?= $p['ID_Products'] ?>" 
+                                class="btn btn-sm btn-outline-danger" 
+                                data-confirm="Удалить товар из корзины?">
+                                <i class="fas fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -84,12 +88,19 @@
                             </div>
                         </div>
                         <div class="card-footer bg-light">
-                            <button type="submit" class="btn btn-warning w-100 mb-2">
-                                <i class="fas fa-sync-alt me-1"></i> Обновить корзину
-                            </button>
-                            <a href="/checkout" class="btn btn-success w-100">
-                                <i class="fas fa-check-circle me-1"></i> Оформить заказ
-                            </a>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="fas fa-sync-alt me-1"></i> Обновить корзину
+                                </button>
+                                <a href="/cart/clear" 
+                                class="btn btn-outline-danger" 
+                                data-confirm="Очистить всю корзину? Все товары будут удалены.">
+                                    <i class="fas fa-trash me-1"></i> Очистить корзину
+                                </a>
+                                <a href="/checkout" class="btn btn-success">
+                                    <i class="fas fa-check-circle me-1"></i> Оформить заказ
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
