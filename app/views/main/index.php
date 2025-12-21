@@ -2,7 +2,7 @@
 
 <div class="container my-5">
     <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold">Добро пожаловать в SportShop!</h1>
+        <h1 class="display-4 fw-bold">Добро пожаловать в SportIK!</h1>
         <p class="lead text-muted">Лучшие спортивные товары — по лучшим ценам</p>
     </div>
 

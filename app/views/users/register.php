@@ -38,6 +38,13 @@
                             <label class="form-label">Подтвердите пароль</label>
                             <input type="password" class="form-control" name="password_confirm" minlength="6" required>
                         </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                            <label class="form-check-label" for="terms">
+                                Я соглашаюсь с <a href="#" target="_blank">условиями использования</a> 
+                                и <a href="#" target="_blank">политикой конфиденциальности</a>
+                            </label>
+                        </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-success">
                                 <i class="fas fa-user-plus me-2"></i>Зарегистрироваться
