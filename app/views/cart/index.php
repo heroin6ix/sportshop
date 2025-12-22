@@ -69,8 +69,8 @@
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class "card border-primary">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0">Итого к оплате</h5>
+                        <div class="card-header text-black">
+                            <h5 class="mb-0 fw-bold">Итого к оплате</h5>
                         </div>
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-2">
@@ -82,7 +82,7 @@
                                 <span>Бесплатно</span>
                             </div>
                             <hr>
-                            <div class="d-flex justify-content-between fs-4 fw-bold text-primary">
+                            <div class="d-flex justify-content-between fs-4 fw-bold text-black">
                                 <span>Итого:</span>
                                 <span><?= $total ?> ₽</span>
                             </div>
